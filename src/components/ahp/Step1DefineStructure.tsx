@@ -86,7 +86,7 @@ export function Step1DefineStructure({
                     }`}
                   >
                     {criteriaDirections[i] === "min" ? <TrendingDown className="size-3" /> : <TrendingUp className="size-3" />}
-                    {criteriaDirections[i]}
+                    {criteriaDirections[i] === "min" ? t("step3.lessIsBetter") : t("step3.moreIsBetter")}
                   </button>
                   
                   <Button

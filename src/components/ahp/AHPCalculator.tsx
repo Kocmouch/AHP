@@ -66,23 +66,83 @@ export function AHPCalculator() {
   const { t, i18n } = useTranslation();
 
   const [state, setState] = useState<AHPState>(() => ({
-    experts: [{ id: "e1", name: t("step0.expertPlaceholder", { n: 1 }) }],
+    experts: [{ id: "e1", name: "step0.expertPlaceholder|1" }],
     expertCriteriaSliders: [makeSliders(3, 3)],
     expertAltSliders: [makeAltSliders(3, 3)],
     criteria: [
-      t("defaults.price"),
-      t("defaults.quality"),
-      t("defaults.brand")
+      "defaults.price",
+      "defaults.quality",
+      "defaults.brand"
     ],
     alternatives: [
-      t("defaults.optionA"),
-      t("defaults.optionB"),
-      t("defaults.optionC")
+      "defaults.optionA",
+      "defaults.optionB",
+      "defaults.optionC"
     ],
     criteriaDirections: ["min", "max", "max"],
     criteriaRawValues: makeRawValues(3, 3),
     activeStep: 0,
   }));
+
+  // State repair logic: Handles translations of default values (Cena -> Price, etc.)
+  React.useEffect(() => {
+    setState((s) => {
+      let changed = false;
+
+      // We define a map of all known default values in both languages to their keys
+      // This ensures we can ALWAYS catch them even during language transitions
+      const defaultToKey: Record<string, string> = {
+        "Cena": "defaults.price", "Price": "defaults.price",
+        "Jakość": "defaults.quality", "Quality": "defaults.quality",
+        "Marka": "defaults.brand", "Brand": "defaults.brand",
+        "Opcja A": "defaults.optionA", "Option A": "defaults.optionA",
+        "Opcja B": "defaults.optionB", "Option B": "defaults.optionB",
+        "Opcja C": "defaults.optionC", "Option C": "defaults.optionC",
+        "defaults.price": "defaults.price", "defaults.quality": "defaults.quality", "defaults.brand": "defaults.brand",
+        "defaults.optionA": "defaults.optionA", "defaults.optionB": "defaults.optionB", "defaults.optionC": "defaults.optionC"
+      };
+
+      const newCriteria = s.criteria.map((c) => {
+        const key = defaultToKey[c];
+        if (key) {
+          const trans = t(key);
+          if (trans !== c) {
+            changed = true;
+            return trans;
+          }
+        }
+        return c;
+      });
+
+      const newAlternatives = s.alternatives.map((a) => {
+        const key = defaultToKey[a];
+        if (key) {
+          const trans = t(key);
+          if (trans !== a) {
+            changed = true;
+            return trans;
+          }
+        }
+        return a;
+      });
+
+      const newExperts = s.experts.map((e) => {
+        // Handle placeholders: "Ekspert 1", "Expert 1", "step0.expertPlaceholder|1"
+        if (e.name.includes("|") || e.name.startsWith("Ekspert ") || e.name.startsWith("Expert ")) {
+          const n = parseInt(e.name.split(" ").pop() ?? "1") || 1;
+          const trans = t("step0.expertPlaceholder", { n });
+          if (trans !== e.name) {
+            changed = true;
+            return { ...e, name: trans };
+          }
+        }
+        return e;
+      });
+
+      if (!changed) return s;
+      return { ...s, criteria: newCriteria, alternatives: newAlternatives, experts: newExperts };
+    });
+  }, [i18n.language]);
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -95,7 +155,7 @@ export function AHPCalculator() {
       const n = s.experts.length + 1;
       return {
         ...s,
-        experts: [...s.experts, { id: crypto.randomUUID(), name: t("step0.expertPlaceholder", { n: n }) }],
+        experts: [...s.experts, { id: crypto.randomUUID(), name: t("step0.expertPlaceholder", { n: n, defaultValue: `Expert ${n}` }) }],
         expertCriteriaSliders: [...s.expertCriteriaSliders, makeSliders(s.criteria.length, s.criteria.length)],
         expertAltSliders: [...s.expertAltSliders, makeAltSliders(s.criteria.length, s.alternatives.length)],
       };
@@ -126,7 +186,7 @@ export function AHPCalculator() {
       const n = s.criteria.length + 1;
       return {
         ...s,
-        criteria: [...s.criteria, t("defaults.criterion", { n: n })],
+        criteria: [...s.criteria, t("defaults.criterion", { n: n, defaultValue: `Criterion ${n}` })],
         criteriaDirections: [...s.criteriaDirections, "max"],
         expertCriteriaSliders: resizeExpertCriteriaSliders(s.experts.length, n, s.expertCriteriaSliders),
         expertAltSliders: resizeExpertAltSliders(s.experts.length, n, s.alternatives.length, s.expertAltSliders),
@@ -179,7 +239,7 @@ export function AHPCalculator() {
       const n = s.alternatives.length + 1;
       return {
         ...s,
-        alternatives: [...s.alternatives, t("defaults.option", { n: String.fromCharCode(64 + n) })],
+        alternatives: [...s.alternatives, t("defaults.option", { n: String.fromCharCode(64 + n), defaultValue: `Option ${String.fromCharCode(64 + n)}` })],
         expertAltSliders: resizeExpertAltSliders(s.experts.length, s.criteria.length, n, s.expertAltSliders),
         criteriaRawValues: resizeRawValues(s.criteria.length, n, s.criteriaRawValues),
       };
@@ -260,18 +320,18 @@ export function AHPCalculator() {
 
   function onRestart() {
     setState({
-      experts: [{ id: "e1", name: t("step0.expertPlaceholder", { n: 1 }) }],
+      experts: [{ id: "e1", name: "step0.expertPlaceholder|1" }],
       expertCriteriaSliders: [makeSliders(3, 3)],
       expertAltSliders: [makeAltSliders(3, 3)],
       criteria: [
-        t("defaults.price"),
-        t("defaults.quality"),
-        t("defaults.brand")
+        "defaults.price",
+        "defaults.quality",
+        "defaults.brand"
       ],
       alternatives: [
-        t("defaults.optionA"),
-        t("defaults.optionB"),
-        t("defaults.optionC")
+        "defaults.optionA",
+        "defaults.optionB",
+        "defaults.optionC"
       ],
       criteriaDirections: ["min", "max", "max"],
       criteriaRawValues: makeRawValues(3, 3),

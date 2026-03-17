@@ -52,7 +52,7 @@
   "step0": {
     "title": "Eksperci",
     "description": "Zdefiniuj listę ekspertów biorących udział w ocenie. Każdy ekspert wypełni porównania niezależnie.",
-    "addExpert": "Dodaj ekspera",
+    "addExpert": "Dodaj eksperta",
     "expertPlaceholder": "Ekspert {{n}}"
   },
   "step1": {
@@ -135,5 +135,8 @@
     "optionC": "Opcja C",
     "criterion": "Kryterium {{n}}",
     "option": "Opcja {{n}}"
+  },
+  "common": {
+    "toggleTheme": "Przełącz motyw"
   }
 }

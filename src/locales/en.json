@@ -135,5 +135,8 @@
     "optionC": "Option C",
     "criterion": "Criterion {{n}}",
     "option": "Option {{n}}"
+  },
+  "common": {
+    "toggleTheme": "Toggle theme"
   }
 }
