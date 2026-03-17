@@ -1,12 +1,17 @@
 export type CriterionDirection = "min" | "max";
 
+export interface Expert {
+  id: string;
+  name: string;
+}
+
 export interface AHPState {
+  experts: Expert[];
+  expertCriteriaSliders: number[][][];   // [expertIdx][i][j]
+  expertAltSliders: number[][][][];      // [expertIdx][criterionIdx][i][j]
   criteria: string[];
   alternatives: string[];
   criteriaDirections: CriterionDirection[];
-  criteriaSliders: number[][];
-  altSliders: number[][][];
-  // raw numeric values per criterion per alternative (null = not set)
   criteriaRawValues: (number | null)[][];
   activeStep: number;
 }

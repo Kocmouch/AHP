@@ -110,6 +110,63 @@ export function rawValuesToSliders(
   return sliders;
 }
 
+export interface InconsistentPair {
+  i: number;
+  j: number;
+  currentSlider: number;
+  suggestedSlider: number;
+  score: number;
+}
+
+export function ratioToSlider(ratio: number): number {
+  if (ratio >= 1) return Math.min(Math.round(ratio) - 1, 8);
+  return -Math.min(Math.round(1 / ratio) - 1, 8);
+}
+
+export function aggregateByGeometricMean(
+  sliderSets: number[][][],  // [expertIdx][i][j]
+  n: number
+): number[][] {
+  const k = sliderSets.length;
+  const result = Array.from({ length: n }, () => Array(n).fill(0) as number[]);
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      let product = 1;
+      for (let e = 0; e < k; e++) {
+        product *= sliderToRatio(sliderSets[e]?.[i]?.[j] ?? 0);
+      }
+      result[i]![j] = ratioToSlider(Math.pow(product, 1 / k));
+    }
+  }
+  return result;
+}
+
+export function findInconsistentPairs(
+  matrix: number[][],
+  weights: number[],
+  sliders: number[][]
+): InconsistentPair[] {
+  const n = matrix.length;
+  const pairs: InconsistentPair[] = [];
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      const aij = matrix[i]?.[j] ?? 1;
+      const wi = weights[i] ?? 0;
+      const wj = weights[j] ?? 0;
+      if (wj === 0) continue;
+      const wRatio = wi / wj;
+      const score = Math.abs(aij - wRatio);
+      pairs.push({
+        i, j,
+        currentSlider: sliders[i]?.[j] ?? 0,
+        suggestedSlider: ratioToSlider(wRatio),
+        score,
+      });
+    }
+  }
+  return pairs.sort((a, b) => b.score - a.score);
+}
+
 export function computeFinalScores(
   criteriaWeights: number[],
   altWeights: number[][]

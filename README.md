@@ -12,15 +12,21 @@
 ## 🚀 Główne Funkcje
 
 - **Wieloetapowy Kreator Decyzji:** Intuicyjny proces od definicji struktury po finalny ranking.
+- **Wsparcia dla Wielu Ekspertów:** Możliwość dodawania wielu decydentów i automatycznej agregacji ich opinii przy użyciu średniej geometrycznej.
+- **Analiza Wrażliwości (Sensitivity Analysis):** Interaktywne suwaki w widoku wyników, pozwalające na dynamiczną zmianę wag kryteriów i obserwowanie zmian w rankingu w czasie rzeczywistym.
 - **Porównywanie Parami (Pairwise Comparison):** Wykorzystanie skali Saaty'ego do precyzyjnego określania preferencji.
 - **Automatyczna Konwersja Wartości:** Możliwość wpisania surowych danych (np. cena w PLN, waga w kg), które system automatycznie zamienia na relacje AHP.
 - **Weryfikacja Spójności (Consistency Check):** Obliczanie współczynnika CR (Consistency Ratio) w czasie rzeczywistym, informujące czy dokonane oceny są logicznie spójne.
-- **Interaktywne Wizualizacje:** Czytelne wykresy i wskaźniki prezentujące rozkład wag oraz ranking końcowy.
-- **Nowoczesny Design:** Interfejs typu *Glassmorphism* z dynamicznymi animacjami i pełną responsywnością.
+- **Generowanie Raportów PDF:** Profesjonalny eksport wyników, wliczając wagi, rankingi i statusy spójności.
+- **Nowoczesne Wizualizacje:** Szyte na miarę komponenty SVG (wykresy słupkowe, pierścieniowe) z dynamicznymi animacjami.
+- **Design Premium:** Interfejs typu *Glassmorphism* z rozmytymi tłami (backdrop-blur), płynnymi przejściami i pełną responsywnością.
 
 ---
 
 ## 🛠 Jak to działa? (Proces AHP)
+
+### Krok 0: Eksperci
+Zdefiniuj grupę osób podejmujących decyzję. System pozwoli każdemu ekspertowi na niezależną ocenę, a następnie wyciągnie matematyczny konsensus.
 
 ### Krok 1: Struktura
 Zdefiniuj co chcesz ocenić (Alternatywy) oraz jakie czynniki są dla Ciebie istotne (Kryteria). Możesz określić kierunek kryterium:
@@ -28,25 +34,23 @@ Zdefiniuj co chcesz ocenić (Alternatywy) oraz jakie czynniki są dla Ciebie ist
 - **MIN:** Im niższa wartość, tym lepiej (np. cena, czas dostawy).
 
 ### Krok 2: Macierz Kryteriów
-Porównaj kryteria między sobą, określając który czynnik jest ważniejszy i w jakim stopniu. System obliczy wagi globalne dla każdego kryterium.
+Porównaj kryteria między sobą, określając który czynnik jest ważniejszy i w jakim stopniu. Możesz przeglądać oceny indywidualne lub wynik zagregowany.
 
 ### Krok 3: Ocena Alternatyw
-Dla każdego kryterium oceń, jak wypadają poszczególne opcje. Możesz to zrobić manualnie (suwakami) lub wpisując konkretne wartości liczbowe.
+Dla każdego kryterium oceń, jak wypadają poszczególne opcje. Możesz to zrobić manualnie (suwakami) lub wpisując konkretne wartości liczbowe z tabeli specyfikacji.
 
-### Krok 4: Wyniki
-System wykonuje syntezę wag i prezentuje ostateczny ranking. Dowiesz się, która opcja jest najbliższa matematycznemu ideałowi Twoich preferencji.
+### Krok 4: Wyniki i Symulacja
+System wykonuje syntezę wag i prezentuje ostateczny ranking. Wykorzystaj **Analizę Wrażliwości**, aby sprawdzić "co by było gdyby" (np. gdyby cena stała się dwa razy ważniejsza niż jakość).
 
 ---
 
 ## 🧮 Matematyka w tle
 
 Silnik obliczeniowy (`ahpEngine.ts`) implementuje standardowy algorytm AHP:
-1. **Budowa macierzy porównań** na podstawie suwaków (skala 1-9).
-2. **Normalizacja kolumn** i wyliczanie średnich wierszowych w celu uzyskania wektora wag.
-3. **Obliczanie λ_max** (największej wartości własnej).
-4. **Wyznaczanie CI (Consistency Index):** $CI = \frac{\lambda_{max} - n}{n - 1}$
-5. **Obliczanie CR (Consistency Ratio):** $CR = \frac{CI}{RI}$, gdzie RI to indeks losowy.
-   * *Przyjmuje się, że CR < 0.1 oznacza spójne i wiarygodne oceny.*
+1. **Agregacja GDM (Group Decision Making):** Wykorzystanie średniej geometrycznej do syntezy macierzy porównań wszystkich ekspertów.
+2. **Budowa macierzy porównań** na podstawie suwaków (skala 1-9) lub relacji wartości liczbowych.
+3. **Normalizacja kolumn** i wyliczanie średnich wierszowych w celu uzyskania wektora wag.
+4. **Wyznaczanie współczynników CI i CR** w celu walidacji poprawności logicznej ocen.
 
 ---
 
@@ -55,9 +59,10 @@ Silnik obliczeniowy (`ahpEngine.ts`) implementuje standardowy algorytm AHP:
 - **Framework:** [React 19](https://react.dev/)
 - **Runtime:** [Bun](https://bun.sh/)
 - **Stylizacja:** Tailwind CSS (v4)
-- **Komponenty UI:** Radix UI / shadcn/ui
-- **Wizualizacje:** Recharts
+- **Komponenty UI:** Radix UI / customowy system designu (Glassmorphism)
+- **Raporty:** [html2pdf.js](https://github.com/eKoopmans/html2pdf.js/)
 - **Ikony:** Lucide React
+- **Animacje:** Tailwind transitions & CSS Keyframes
 
 ---
 
@@ -83,10 +88,11 @@ bun start
 
 ## 📁 Struktura Projektu
 
-- `src/components/ahp/ahpEngine.ts` - Logika matematyczna AHP.
-- `src/components/ahp/AHPCalculator.tsx` - Główny komponent aplikacji (Wizard).
-- `src/components/ahp/Step1-4` - Poszczególne etapy procesu decyzyjnego.
-- `src/lib/utils.ts` - Narzędzia pomocnicze dla Tailwind i stylizacji.
+- `src/components/ahp/ahpEngine.ts` - Logika matematyczna (AHP, agragacja, konwersja danych).
+- `src/components/ahp/AHPCalculator.tsx` - Główny silnik aplikacji (Wizard).
+- `src/components/ahp/Step0-4` - Implementacja poszczególnych kroków procesu.
+- `src/components/ahp/types.ts` - Definicje typów danych (Expert, ConsistencyResult, etc.).
+- `src/styles/globals.css` - Definicje systemu designu i efektów szklanych surfaces.
 
 ---
 

@@ -1,0 +1,139 @@
+{
+  "sidebar": {
+    "title": "AHP",
+    "engine": "Engine",
+    "subTitle": "Professional decision support based on the analytic hierarchy process.",
+    "status": {
+      "label": "Project Status",
+      "initializing": "Initializing...",
+      "preparing": "Preparing session",
+      "readyToEvaluate": "Ready to evaluate",
+      "requiresDefinition": "Requires definition",
+      "consistencyMaintained": "Consistency maintained",
+      "correctionRequired": "Correction required",
+      "allCorrect": "All correct",
+      "inconsistency": "Inconsistency ({{count}})",
+      "finalScores": "Results calculated",
+      "finalDescription": "You can now analyze the ranking",
+      "expertsLabel": "Experts",
+      "expertsValue": "{{count}} experts",
+      "expertsDescription": "Manage expert list",
+      "structureLabel": "Project Structure",
+      "structureDescription": "{{criteriaCount}} criteria • {{alternativesCount}} options",
+      "criteriaLabel": "Criteria Relations",
+      "criteriaDescription": "CR factor: {{cr}}%",
+      "alternativesLabel": "Alternative Relations",
+      "alternativesDescriptionCorrect": "Comparisons are logically consistent",
+      "alternativesDescriptionError": "Correct comparisons in red fields",
+      "finalLabel": "Analysis Final"
+    }
+  },
+  "steps": {
+    "numExperts": "0. Experts",
+    "numStructure": "1. Structure",
+    "numCriteria": "2. Criteria",
+    "numAlternatives": "3. Alternatives",
+    "numResults": "4. Results",
+    "experts": "Experts",
+    "structure": "Structure",
+    "criteria": "Criteria",
+    "alternatives": "Alternatives",
+    "results": "Results"
+  },
+  "navigation": {
+    "back": "Back",
+    "next": "Next",
+    "seeResults": "See Results",
+    "restart": "Start Over"
+  },
+  "footer": {
+    "tagline": "Analytic Hierarchy Process"
+  },
+  "step0": {
+    "title": "Experts",
+    "description": "Define a list of experts participating in the evaluation. Each expert will fill in comparisons independently.",
+    "addExpert": "Add Expert",
+    "expertPlaceholder": "Expert {{n}}"
+  },
+  "step1": {
+    "title": "Problem Definition",
+    "description": "Define the criteria you will use and the alternatives you are evaluating.",
+    "criteriaLabel": "Selection Criteria",
+    "criterionPlaceholder": "Criterion name...",
+    "addCriterion": "Add Criterion",
+    "alternativesLabel": "Alternatives",
+    "alternativePlaceholder": "Alternative name...",
+    "addAlternative": "Add Alternative"
+  },
+  "step2": {
+    "title": "Criteria Weights",
+    "description": "Decide which criteria are more important to you. Your choices will affect the final weight of each alternative.",
+    "expertLabel": "Expert",
+    "aggregatedCR": "Aggregated CR (AIJ):"
+  },
+  "step3": {
+    "title": "Alternative Evaluation",
+    "description": "Select a criterion and compare alternatives.",
+    "sliders": "Sliders",
+    "values": "Values",
+    "criterionSelection": "Criterion Selection",
+    "lessIsBetter": "less is better",
+    "moreIsBetter": "more is better",
+    "inputValue": "Enter value...",
+    "expertLabel": "Expert",
+    "aggregatedCR": "Aggregated CR (AIJ):"
+  },
+  "step4": {
+    "title": "Final Results",
+    "description": "Here is the calculated ranking of your alternatives based on the defined criteria.",
+    "generateReport": "Generate Report",
+    "aggregatedResults": "Aggregated Results",
+    "ranking": "Ranking",
+    "winner": "Winner",
+    "bestChoice": "Best Choice",
+    "resultDetails": "Result Details",
+    "distribution": "Distribution %",
+    "selectionCriteria": "Selection Criteria",
+    "elements": "Elements",
+    "simulation": "Simulation",
+    "sensitivityAnalysis": "Sensitivity Analysis",
+    "reset": "Reset",
+    "simulationDescription": "Drag the sliders to see how changing priorities affects the ranking.",
+    "simulationMode": "Simulation mode — weights have been modified",
+    "reportTitle": "AHP Report",
+    "generatedOn": "View: {{view}} — Generated: {{date}}",
+    "criteriaAndWeights": "Criteria and Weights",
+    "consistent": "consistent",
+    "inconsistent": "inconsistent",
+    "finalRanking": "Final Ranking",
+    "place": "Place",
+    "alternative": "Alternative",
+    "score": "Score %",
+    "weight": "Weight %"
+  },
+  "consistency": {
+    "status": "Consistency Ratio",
+    "description": "Do your judgments complement each other logically?",
+    "found": "Inconsistency detected!",
+    "recommendationShort": "Most conflicting pairs:",
+    "current": "current",
+    "suggested": "suggested",
+    "tooHighShort": "Inconsistency is too high (>10%). Please verify your judgments.",
+    "consistentModel": "Your decision model is consistent and ready for calculations."
+  },
+  "slider": {
+    "bothEqual": "Both elements are equally important",
+    "isMoreImportant": "{{itemA}} is {{val}}× more important than {{itemB}}",
+    "conflict": "Conflict"
+  },
+  "defaults": {
+    "price": "Price",
+    "quality": "Quality",
+    "brand": "Brand",
+    "optionA": "Option A",
+    "optionB": "Option B",
+    "optionC": "Option C",
+    "criterion": "Criterion {{n}}",
+    "option": "Option {{n}}"
+  }
+}

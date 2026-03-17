@@ -1,0 +1,139 @@
+{
+  "sidebar": {
+    "title": "AHP",
+    "engine": "Engine",
+    "subTitle": "Profesjonalne wsparcie decyzji oparte na procesie analitycznej hierarchii.",
+    "status": {
+      "label": "Status projektu",
+      "initializing": "Inicjalizacja...",
+      "preparing": "Przygotowywanie sesji",
+      "readyToEvaluate": "Gotowy do oceny",
+      "requiresDefinition": "Wymaga definicji",
+      "consistencyMaintained": "Spójność zachowana",
+      "correctionRequired": "Wymagana korekta",
+      "allCorrect": "Wszystkie poprawne",
+      "inconsistency": "Niespójność ({{count}})",
+      "finalScores": "Wyniki obliczone",
+      "finalDescription": "Możesz teraz przeanalizować ranking",
+      "expertsLabel": "Eksperci",
+      "expertsValue": "{{count}} ekspertów",
+      "expertsDescription": "Zarządzaj listą ekspertów",
+      "structureLabel": "Struktura projektu",
+      "structureDescription": "{{criteriaCount}} kryteriów • {{alternativesCount}} opcji",
+      "criteriaLabel": "Relacje kryteriów",
+      "criteriaDescription": "Współczynnik CR: {{cr}}%",
+      "alternativesLabel": "Relacje alternatyw",
+      "alternativesDescriptionCorrect": "Porównania są logicznie spójne",
+      "alternativesDescriptionError": "Popraw porównania w czerwonych polach",
+      "finalLabel": "Finał analizy"
+    }
+  },
+  "steps": {
+    "numExperts": "0. Eksperci",
+    "numStructure": "1. Struktura",
+    "numCriteria": "2. Kryteria",
+    "numAlternatives": "3. Alternatywy",
+    "numResults": "4. Wyniki",
+    "experts": "Eksperci",
+    "structure": "Struktura",
+    "criteria": "Kryteria",
+    "alternatives": "Alternatywy",
+    "results": "Wyniki"
+  },
+  "navigation": {
+    "back": "Powrót",
+    "next": "Dalej",
+    "seeResults": "Zobacz wyniki",
+    "restart": "Zacznij od nowa"
+  },
+  "footer": {
+    "tagline": "Proces Analitycznej Hierarchii"
+  },
+  "step0": {
+    "title": "Eksperci",
+    "description": "Zdefiniuj listę ekspertów biorących udział w ocenie. Każdy ekspert wypełni porównania niezależnie.",
+    "addExpert": "Dodaj ekspera",
+    "expertPlaceholder": "Ekspert {{n}}"
+  },
+  "step1": {
+    "title": "Definicja problemu",
+    "description": "Zdefiniuj kryteria, którymi będziesz się kierować, oraz alternatywy, które oceniasz.",
+    "criteriaLabel": "Kryteria wyboru",
+    "criterionPlaceholder": "Nazwa kryterium...",
+    "addCriterion": "Dodaj kryterium",
+    "alternativesLabel": "Alternatywy",
+    "alternativePlaceholder": "Nazwa alternatywy...",
+    "addAlternative": "Dodaj alternatywę"
+  },
+  "step2": {
+    "title": "Wagi kryteriów",
+    "description": "Zdecyduj, które kryteria mają dla Ciebie większe znaczenie. Twoje wybory wpłyną na wagę końcową każdej alternatywy.",
+    "expertLabel": "Ekspert",
+    "aggregatedCR": "CR zagregowany (AIJ):"
+  },
+  "step3": {
+    "title": "Ocenianie alternatyw",
+    "description": "Wybierz kryterium i porównaj alternatywy.",
+    "sliders": "Suwaki",
+    "values": "Wartości",
+    "criterionSelection": "Wybór kryterium",
+    "lessIsBetter": "im mniej tym lepiej",
+    "moreIsBetter": "im więcej tym lepiej",
+    "inputValue": "Wpisz wartość...",
+    "expertLabel": "Ekspert",
+    "aggregatedCR": "CR zagregowany (AIJ):"
+  },
+  "step4": {
+    "title": "Finalne Wyniki",
+    "description": "Oto obliczony ranking Twoich alternatyw na podstawie zdefiniowanych kryteriów.",
+    "generateReport": "Generuj raport",
+    "aggregatedResults": "Łączne wyniki",
+    "ranking": "Ranking",
+    "winner": "Zwycięzca",
+    "bestChoice": "Najlepszy wybór",
+    "resultDetails": "Szczegóły wyników",
+    "distribution": "Dystrybucja %",
+    "selectionCriteria": "Kryteria wyboru",
+    "elements": "Elementy",
+    "simulation": "Symulacja",
+    "sensitivityAnalysis": "Analiza wrażliwości",
+    "reset": "Resetuj",
+    "simulationDescription": "Przeciągnij suwaki aby zobaczyć jak zmiana priorytetów wpływa na ranking.",
+    "simulationMode": "Tryb symulacji — wagi zostały zmodyfikowane",
+    "reportTitle": "Raport AHP",
+    "generatedOn": "Widok: {{view}} — Wygenerowano: {{date}}",
+    "criteriaAndWeights": "Kryteria i wagi",
+    "consistent": "spójny",
+    "inconsistent": "niespójny",
+    "finalRanking": "Finalny ranking",
+    "place": "Miejsce",
+    "alternative": "Alternatywa",
+    "score": "Wynik %",
+    "weight": "Waga %"
+  },
+  "consistency": {
+    "status": "Współczynnik spójności",
+    "description": "Czy Twoje oceny logicznie się uzupełniają?",
+    "found": "Niespójność wykryta!",
+    "recommendationShort": "Najbardziej konfliktowe pary:",
+    "current": "obecna",
+    "suggested": "sugerowana",
+    "tooHighShort": "Niespójność jest zbyt wysoka (>10%). Zweryfikuj swoje oceny.",
+    "consistentModel": "Twój model decyzyjny jest spójny i gotowy do obliczeń."
+  },
+  "slider": {
+    "bothEqual": "Oba elementy są tak samo ważne",
+    "isMoreImportant": "{{itemA}} jest {{val}}× ważniejszy niż {{itemB}}",
+    "conflict": "Konflikt"
+  },
+  "defaults": {
+    "price": "Cena",
+    "quality": "Jakość",
+    "brand": "Marka",
+    "optionA": "Opcja A",
+    "optionB": "Opcja B",
+    "optionC": "Opcja C",
+    "criterion": "Kryterium {{n}}",
+    "option": "Opcja {{n}}"
+  }
+}

@@ -1,32 +1,39 @@
 import * as React from "react";
 import { Slider } from "@/components/ui/slider";
-import { Badge } from "@/components/ui/badge";
 import { sliderToRatio } from "./ahpEngine";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface PairwiseSliderProps {
   nameA: string;
   nameB: string;
   value: number;
   onChange: (v: number) => void;
+  highlight?: boolean;
 }
 
-export function PairwiseSlider({ nameA, nameB, value, onChange }: PairwiseSliderProps) {
+export function PairwiseSlider({ nameA, nameB, value, onChange, highlight }: PairwiseSliderProps) {
+  const { t } = useTranslation();
   const ratio = sliderToRatio(value);
 
   let description: string;
   if (value > 0) {
-    description = `${nameA} jest ${value + 1}× ważniejsze niż ${nameB}`;
+    description = t("slider.isMoreImportant", { itemA: nameA, val: value + 1, itemB: nameB });
   } else if (value === 0) {
-    description = "Oba kryteria są tak samo ważne";
+    description = t("slider.bothEqual");
   } else {
-    description = `${nameB} jest ${Math.abs(value) + 1}× ważniejsze niż ${nameA}`;
+    description = t("slider.isMoreImportant", { itemA: nameB, val: Math.abs(value) + 1, itemB: nameA });
   }
 
   const ratioLabel = value > 0 ? `${ratio}:1` : value < 0 ? `1:${Math.abs(value) + 1}` : "1:1";
 
   return (
-    <div className="space-y-6 transition-all group">
+    <div className={`space-y-6 transition-all group ${highlight ? "rounded-2xl border border-amber-500/40 bg-amber-500/5 shadow-amber-500/10 p-2 -m-2" : ""}`}>
+      {highlight && (
+        <div className="text-[9px] font-black uppercase tracking-widest text-amber-500 flex items-center gap-1">
+          ⚠ {t("slider.conflict")}
+        </div>
+      )}
       <div className="flex items-center justify-between gap-6 relative">
         {/* Left Side */}
         <div className={`flex flex-col flex-1 transition-all duration-300 ${value > 0 ? "translate-x-1" : "opacity-40"}`}>

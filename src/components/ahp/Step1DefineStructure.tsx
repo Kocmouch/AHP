@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { X, Plus, TrendingDown, TrendingUp } from "lucide-react";
 import type { CriterionDirection } from "./types";
+import { useTranslation } from "react-i18next";
 
 interface Step1DefineStructureProps {
   criteria: string[];
@@ -32,6 +33,7 @@ export function Step1DefineStructure({
   onRenameAlternative,
   onNext,
 }: Step1DefineStructureProps) {
+  const { t } = useTranslation();
   const canProceed = criteria.length >= 2 && alternatives.length >= 2;
 
   return (
@@ -41,10 +43,10 @@ export function Step1DefineStructure({
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <div className="size-2 rounded-full bg-primary animate-pulse" />
-            <h2 className="text-xl font-bold tracking-tight text-foreground/90 font-black uppercase tracking-[0.05em]">Definicja problemu</h2>
+            <h2 className="text-xl font-bold tracking-tight text-foreground/90 font-black uppercase tracking-[0.05em]">{t("step1.title")}</h2>
           </div>
           <p className="text-sm text-muted-foreground font-medium italic">
-            Zdefiniuj kryteria, którymi będziesz się kierować, oraz alternatywy, które oceniasz.
+            {t("step1.description")}
           </p>
         </div>
       </header>
@@ -53,7 +55,7 @@ export function Step1DefineStructure({
       <div className="flex-1 px-6 md:px-10 lg:px-14 py-11 space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <section className="space-y-6">
           <div className="flex items-center gap-3">
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary/50 whitespace-nowrap">Kryteria wyboru</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary/50 whitespace-nowrap">{t("step1.criteriaLabel")}</span>
             <div className="h-px w-full bg-gradient-to-r from-border/50 to-transparent" />
             <Badge variant="secondary" className="text-[9px] font-black uppercase tracking-tighter px-2 py-0 border-none bg-muted/20">
               {criteria.length}
@@ -70,7 +72,7 @@ export function Step1DefineStructure({
                   value={c}
                   onChange={(e) => onRenameCriterion(i, e.target.value)}
                   className="flex-1 bg-transparent border-none focus-visible:ring-0 text-sm font-bold placeholder:text-muted-foreground/30 h-8"
-                  placeholder="Nazwa kryterium..."
+                  placeholder={t("step1.criterionPlaceholder")}
                 />
                 
                 <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300">
@@ -105,14 +107,14 @@ export function Step1DefineStructure({
               className="flex items-center justify-center gap-2 h-14 rounded-2xl border-2 border-dashed border-border/20 text-muted-foreground/40 hover:border-primary/40 hover:text-primary hover:bg-primary/[0.02] transition-all text-xs font-black uppercase tracking-widest group"
             >
               <Plus className="size-4 group-hover:rotate-90 transition-transform" />
-              Dodaj kryterium
+              {t("step1.addCriterion")}
             </button>
           </div>
         </section>
 
         <section className="space-y-6">
           <div className="flex items-center gap-3">
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/30 whitespace-nowrap">Alternatywy</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/30 whitespace-nowrap">{t("step1.alternativesLabel")}</span>
             <div className="h-px w-full bg-gradient-to-r from-border/50 to-transparent" />
             <Badge variant="secondary" className="text-[9px] font-black uppercase tracking-tighter px-2 py-0 border-none bg-muted/20">
               {alternatives.length}
@@ -129,7 +131,7 @@ export function Step1DefineStructure({
                   value={a}
                   onChange={(e) => onRenameAlternative(i, e.target.value)}
                   className="flex-1 bg-transparent border-none focus-visible:ring-0 text-sm font-bold placeholder:text-muted-foreground/30 h-8"
-                  placeholder="Nazwa alternatywy..."
+                  placeholder={t("step1.alternativePlaceholder")}
                 />
                 
                 <Button
@@ -149,7 +151,7 @@ export function Step1DefineStructure({
               className="flex items-center justify-center gap-2 h-14 rounded-2xl border-2 border-dashed border-border/20 text-muted-foreground/40 hover:border-primary/40 hover:text-primary hover:bg-primary/[0.02] transition-all text-xs font-black uppercase tracking-widest group"
             >
               <Plus className="size-4 group-hover:rotate-90 transition-transform" />
-              Dodaj alternatywę
+              {t("step1.addAlternative")}
             </button>
           </div>
         </section>
